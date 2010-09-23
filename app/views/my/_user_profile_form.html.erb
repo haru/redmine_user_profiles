@@ -23,3 +23,11 @@
 
     <%= text_area :user, :profile, :rows => 8, :cols=>60, :accesskey => accesskey(:edit), :class => 'wiki-edit' ,:required => true %>
   <%= wikitoolbar_for 'user_profile' %>
+  <%= link_to_remote l(:label_preview),
+                       { :url => { :controller => 'user_profiles', :action => 'preview'},
+                         :method => 'post',
+                         :update => 'profile_preview',
+                         :with => "Form.serialize('my_account_form')",
+                         :complete => "Element.scrollTo('profile_preview')"
+                       }, :accesskey => accesskey(:preview) %>
+<div id="profile_preview" class="wiki"></div>
