@@ -4,7 +4,7 @@ class UserProfilesController < ApplicationController
 
 
   def preview
-    @text = params[:user][:profile]
+    @text = params[:pref][:prof]
     render :partial => 'common/preview'
   end
 

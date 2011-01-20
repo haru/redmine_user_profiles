@@ -15,17 +15,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class User < Principal
+class UserPreference < ActiveRecord::Base
   has_one :user_profile, :dependent => :destroy, :class_name => 'UserProfile'
 
-  def profile
-    return nil unless self.user_profile
-    self.user_profile.content
+  def prof
+    user_profile = UserProfile.find_by_user_id(user.id)
+    return nil unless user_profile
+    user_profile.content
   end
 
-  def profile=(content)
-    self.user_profile = UserProfile.new unless self.user_profile
-    self.user_profile.content = content
-    self.user_profile.save!
+  def prof=(content)
+    user_profile = UserProfile.find_or_create_by_user_id(user.id)
+    user_profile.content = content
+    user_profile.save!
   end
 end

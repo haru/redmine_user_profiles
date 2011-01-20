@@ -16,5 +16,16 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class UserProfile < ActiveRecord::Base
+  belongs_to :users
   unloadable
+  validates_presence_of :user_id
+
+  def self.find_or_create_by_user_id(user_id)
+    user_profile = UserProfile.find(:first, :conditions => ["user_id = ?", user_id])
+    unless user_profile
+      user_profile = UserProfile.new
+      user_profile.user_id = user_id
+    end
+    user_profile
+  end
 end

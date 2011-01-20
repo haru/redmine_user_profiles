@@ -25,7 +25,7 @@ Redmine::Plugin.register :redmine_user_profiles do
   name 'Redmine User Profiles plugin'
   author 'Haruyuki Iida'
   description 'This is a plugin for Redmine lets each user edit a profile.'
-  version '0.0.1'
+  version '0.0.2'
   url 'http://www.r-labs.org/projects/userprofile'
   author_url 'http://twitter.com/haru_iida'
   requires_redmine :version_or_higher => '1.0.0'
