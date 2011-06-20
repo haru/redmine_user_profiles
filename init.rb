@@ -1,5 +1,5 @@
 # User Profiles plugin for Redmine
-# Copyright (C) 2010  Haruyuki Iida
+# Copyright (C) 2010-2011  Haruyuki Iida
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -25,9 +25,9 @@ Redmine::Plugin.register :redmine_user_profiles do
   name 'Redmine User Profiles plugin'
   author 'Haruyuki Iida'
   description 'This is a plugin for Redmine lets each user edit a profile.'
-  version '0.0.2'
+  version '0.0.3'
   url 'http://www.r-labs.org/projects/userprofile'
   author_url 'http://twitter.com/haru_iida'
-  requires_redmine :version_or_higher => '1.0.0'
+  requires_redmine :version_or_higher => '1.2.0'
 
 end

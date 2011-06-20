@@ -1,5 +1,5 @@
 # User Profiles plugin for Redmine
-# Copyright (C) 2010  Haruyuki Iida
+# Copyright (C) 2010-2011  Haruyuki Iida
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -16,7 +16,7 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 class UserProfile < ActiveRecord::Base
-  belongs_to :users
+  belongs_to :user
   unloadable
   validates_presence_of :user_id
 
@@ -27,5 +27,10 @@ class UserProfile < ActiveRecord::Base
       user_profile.user_id = user_id
     end
     user_profile
+  end
+  
+  def self.destroy_by_user_id(user_id)
+    user_profile = UserProfile.find(:first, :conditions => ["user_id = ?", user_id])
+    user_profile.destroy if user_profile
   end
 end
