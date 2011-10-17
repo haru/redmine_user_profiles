@@ -15,11 +15,20 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-class UserPreference < ActiveRecord::Base
-  #has_one :user_profile,  :through => 'User', :dependent => :destroy, :class_name => 'UserProfile'
+module UserProfilesUserPreferencePatch
+  def self.included(base) # :nodoc:
+    base.send(:include, UserPreferenceInstanceMethodsForUserProfile)
 
-  after_destroy :destroy_user_profile
-  
+    base.class_eval do
+      unloadable # Send unloadable so it will not be unloaded in development
+      after_destroy :destroy_user_profile
+     
+    end
+
+  end
+end
+
+module UserPreferenceInstanceMethodsForUserProfile  
   def prof
     profile = UserProfile.find_by_user_id(user.id)
     return nil unless profile

@@ -21,6 +21,16 @@ require 'user_profiles_my_accout_hooks'
 require 'user_profiles_user_patch'
 require 'user_profiles_users_hooks'
 
+require 'dispatcher'
+Dispatcher.to_prepare :redmine_user_profiles do
+  # Guards against including the module multiple time (like in tests)
+  # and registering multiple callbacks
+  require_dependency 'user_preference'
+  unless UserPreference.included_modules.include? UserProfilesUserPreferencePatch
+    UserPreference.send(:include, UserProfilesUserPreferencePatch)
+  end  
+end
+
 Redmine::Plugin.register :redmine_user_profiles do
   name 'Redmine User Profiles plugin'
   author 'Haruyuki Iida'
@@ -31,3 +41,4 @@ Redmine::Plugin.register :redmine_user_profiles do
   requires_redmine :version_or_higher => '1.2.0'
 
 end
+ 
