@@ -1,4 +1,4 @@
-# Mobile Face plugin for Redmine
+# User profile Face plugin for Redmine
 # Copyright (C) 2012  Haruyuki Iida
 #
 # This program is free software; you can redistribute it and/or
