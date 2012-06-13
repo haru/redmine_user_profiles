@@ -15,6 +15,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
-ActionController::Routing::Routes.draw do |map|
-  map.connect 'user_profiles/:action', :controller => 'user_profiles'
+RedmineApp::Application.routes.draw do
+  match 'user_profiles/:action', :controller => 'user_profiles', :via => [:get, :post]
 end
+
