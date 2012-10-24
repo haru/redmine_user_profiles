@@ -1,6 +1,6 @@
 <%
 # User Profiles plugin for Redmine
-# Copyright (C) 2010  Haruyuki Iida
+# Copyright (C) 2010-2012  Haruyuki Iida
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,15 +19,13 @@
 
 
 <h3><%=h l(:label_profile)%></h3>
+<%
+url = url_for(:controller => 'user_profiles', :action => 'preview')
+-%>
 
 
     <%= text_area :pref, :prof, :rows => 8, :cols=>60, :accesskey => accesskey(:edit), :class => 'wiki-edit' ,:required => true %>
   <%= wikitoolbar_for 'pref_prof' %>
-  <%= link_to_remote l(:label_preview),
-                       { :url => { :controller => 'user_profiles', :action => 'preview'},
-                         :method => 'post',
-                         :update => 'profile_preview',
-                         :with => "Form.serialize('my_account_form')",
-                         :complete => "Element.scrollTo('profile_preview')"
-                       }, :accesskey => accesskey(:preview) %>
+  <%= link_to_function l(:label_preview), "$('#profile_preview').load('#{url}', $('#my_account_form').serealize())"%>
+
 <div id="profile_preview" class="wiki"></div>
