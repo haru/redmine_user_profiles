@@ -17,6 +17,24 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 %>
 
+<script type="text/javascript">
+  $.fn.up_serialize2json = function()
+  {
+    var o = {};
+    var a = this.serializeArray();
+    $.each(a, function() {
+      if (o[this.name]) {
+        if (!o[this.name].push) {
+          o[this.name] = [o[this.name]];
+        }
+        o[this.name].push(this.value || '');
+      } else {
+        o[this.name] = this.value || '';
+      }
+    });
+    return o;
+  };
+</script>
 
 <h3><%=h l(:label_profile)%></h3>
 <%
@@ -24,8 +42,8 @@ url = url_for(:controller => 'user_profiles', :action => 'preview')
 -%>
 
 
-    <%= text_area :pref, :prof, :rows => 8, :cols=>60, :accesskey => accesskey(:edit), :class => 'wiki-edit' ,:required => true %>
-  <%= wikitoolbar_for 'pref_prof' %>
-  <%= link_to_function l(:label_preview), "$('#profile_preview').load('#{url}', $('#my_account_form').serealize())"%>
+<%= text_area :pref, :prof, :rows => 8, :cols=>60, :accesskey => accesskey(:edit), :class => 'wiki-edit' ,:required => true %>
+<%= wikitoolbar_for 'pref_prof' %>
+<%= link_to_function l(:label_preview), "$('#profile_preview').load('#{url}', $('#my_account_form').up_serialize2json())"%>
 
 <div id="profile_preview" class="wiki"></div>
