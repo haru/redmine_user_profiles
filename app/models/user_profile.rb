@@ -21,16 +21,16 @@ class UserProfile < ActiveRecord::Base
   validates_presence_of :user_id
 
   def self.find_or_create_by_user_id(user_id)
-    user_profile = UserProfile.find(:first, :conditions => ["user_id = ?", user_id])
+    user_profile = UserProfile.find_by(user_id: user_id)
     unless user_profile
       user_profile = UserProfile.new
       user_profile.user_id = user_id
     end
     user_profile
   end
-  
+
   def self.destroy_by_user_id(user_id)
-    user_profile = UserProfile.find(:first, :conditions => ["user_id = ?", user_id])
+    user_profile = UserProfile.find_by(user_id: user_id)
     user_profile.destroy if user_profile
   end
 end
